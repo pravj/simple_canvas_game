@@ -156,10 +156,8 @@ var update = function (modifier) {
 		++monstersCaught;
 		reset();
 	}
-};
-
-  
-  //  for bound hero inside the park
+	
+	//  for bound hero inside the park
   if(hero.x<32)
   {
     hero.x = 32;
@@ -196,6 +194,175 @@ var update = function (modifier) {
   }
 
 
+	/* adding AI :: but still it's having problems :: */ 
+	
+	// applying motion in goblin
+    	// using concept of COM(center of mass) 
+	// for tracking relative position of whole body
+    
+	// COM co-ordinates
+	var Mcom = {
+	    X: monster.x+16,
+		Y: monster.y+16
+	};
+	var Hcom = {
+	    X: hero.x+16,
+		Y: hero.y+16
+	};
+	// D : distance between COM's
+	var xy = (Hcom.X-Mcom.X)*(Hcom.X-Mcom.X)+(Hcom.Y-Mcom.Y)*(Hcom.Y-Mcom.Y);
+	var D = Math.sqrt(xy);
+	// console.log(D);
+	// if D is in a fixed range
+	if(D<=300)
+	{
+	    // region will be from 1 to 9 [relative region]
+	    // to detect the relative region
+		// detects with refrence to monster
+
+		// upper-left
+		if((Mcom.X>Hcom.X) && (Mcom.Y>Hcom.Y))
+		{
+		    region = 1;
+		}
+		// upper-right
+		if((Mcom.X<Hcom.X) && (Mcom.Y>Hcom.Y))
+		{
+		    region = 2;
+		}
+		// lower-right
+		if((Mcom.X<Hcom.X) && (Mcom.Y<Hcom.Y))
+		{
+		    region = 3;
+		}
+		// lower-left
+		if((Mcom.X>Hcom.X) && (Mcom.Y<Hcom.Y))
+		{
+		    region = 4;
+		}
+
+		// added Math.abs() check in just up,down,left,right cases
+		// otherwise last check was just not-showing result
+		// as the exact state occurs only for miliseconds
+
+		// just upside
+		if((Math.abs(Mcom.X-Hcom.X)<=4) && (Mcom.Y>Hcom.Y))
+		{
+		    region = 5;
+		}
+		// just right
+		if((Math.abs(Mcom.Y-Hcom.Y)<=4) && (Mcom.X<Hcom.X))
+		{
+		    region = 6;
+		}
+		// just down-side
+		if((Math.abs(Mcom.X-Hcom.X)<=4) && (Mcom.Y<Hcom.Y))
+		{
+		    region = 7;
+		}
+		// just left
+		if((Math.abs(Mcom.Y-Hcom.Y)<=4) && (Mcom.X>Hcom.X))
+		{
+		    region = 8;
+		}
+		// exact same
+		// not actually happens
+		// because they hit each-other before this
+		if((Mcom.X==Hcom.X) && (Mcom.Y==Hcom.Y))
+		{
+		    region = 9;
+		}
+	}
+	    // now monster will act according to region
+	    	if(region==1)
+		{
+		    monster.x += monster.speed * modifier;
+			monster.y += monster.speed * modifier;
+		}
+		if(region==2)
+		{
+		    monster.x -= monster.speed * modifier;
+			monster.y += monster.speed * modifier;
+		}
+		if(region==3)
+		{
+		    monster.x -= monster.speed * modifier;
+			monster.y -= monster.speed * modifier;
+		}
+		if(region==4)
+		{
+		    monster.x += monster.speed * modifier;
+			monster.y -= monster.speed * modifier;
+		}
+		if(region==5)
+		{
+		    // stucked at left bottom corner
+			if(Math.abs(monster.x-32)<=4)
+			{
+			    monster.x += monster.speed * modifier;
+			}
+			// stucked at right bottom corner
+			else if(Math.abs(monster.x-canvas.width+64)<=4)
+			{
+			    monster.x -= monster.speed * modifier;
+			}
+			// in between corners
+			else
+			{   monster.y += monster.speed * modifier;}
+		}
+		if(region==6)
+		{
+			// stucked at upper left corner
+			if(Math.abs(monster.x-32)<=4)
+			{
+			    monster.y += monster.speed * modifier;
+			}
+			// stucked at left bottom corner
+			else if(Math.abs(monster.x-32)<=4)
+			{
+			    monster.y -= monster.speed * modifier;
+			}
+			// in between corners
+			else
+			{   monster.x -= monster.speed * modifier;}
+		}
+		if(region==7)
+		{
+			// stucked at upper left corner
+			if(Math.abs(monster.x-32)<=4)
+			{
+			    monster.x += monster.speed * modifier;
+			}
+			// stucked at upper right corner
+			else if(Math.abs(monster.x-canvas.width+64)<=4)
+			{
+			    monster.x -= monster.speed * modifier;
+			}
+			// in between corners
+			else
+			{   monster.y -= monster.speed * modifier;}
+		}
+		if(region==8)
+		{
+		    // stucked at upper right corner
+			if(Math.abs(monster.x-canvas.width+64)<=4)
+			{
+			    monster.y += monster.speed * modifier;
+			}
+			// stucked at bottom right corner
+			else if(Math.abs(monster.x-canvas.width+64)<=4)
+			{
+			    monster.y -= monster.speed * modifier;
+			}
+			// in between corners
+			else
+			{   monster.x += monster.speed * modifier;}
+		}
+};
+
+  
+  
+		
 // Draw everything
 var render = function () {
 	if (bgReady) {
