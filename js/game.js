@@ -158,6 +158,44 @@ var update = function (modifier) {
 	}
 };
 
+  
+  //  for bound hero inside the park
+  if(hero.x<32)
+  {
+    hero.x = 32;
+  }
+  if(hero.y<32)
+  {
+    hero.y = 32;
+  }
+  if(hero.x>canvas.width-64)
+  {
+    hero.x = canvas.width-64;
+  }
+  if(hero.y>canvas.height-64)
+  {
+    hero.y = canvas.height-64;
+  }
+  
+  // for bound monster inside [while moving]
+  if(monster.x<32)
+  {
+    monster.x = 32;
+  }
+  if(monster.y<32)
+  {
+    monster.y = 32;
+  }
+  if(monster.x>canvas.width-64)
+  {
+    monster.x = canvas.width-64;
+  }
+  if(monster.y>canvas.height-64)
+  {
+    monster.y = canvas.height-64;
+  }
+
+
 // Draw everything
 var render = function () {
 	if (bgReady) {
