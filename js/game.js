@@ -29,12 +29,28 @@ monsterImage.onload = function () {
 };
 monsterImage.src = "images/monster.png";
 
+// Bullet image
+var bulletRaedy = false;
+var bulletImage = new Image();
+bulletImage.onload = function () {
+	bulletReady = true;
+};
+bulletImage.src = "images/bullet.png";
+
 // Game objects
 var hero = {
 	speed: 256 // movement in pixels per second
 };
 var monster = {};
 var monstersCaught = 0;
+// added new object [bullet]
+var bullet = new Array(4)
+{
+	bullet[0] = {speed:64}
+	bullet[1] = {speed:64}
+	bullet[2] = {speed:64}
+	bullet[3] = {speed:64}
+};
 
 // Handle keyboard controls
 var keysDown = {};
@@ -48,13 +64,58 @@ addEventListener("keyup", function (e) {
 }, false);
 
 // Reset the game when the player catches a monster
+var turn = 0;
 var reset = function () {
-	hero.x = canvas.width / 2;
-	hero.y = canvas.height / 2;
+	/* intial hero Co-ordinates {exact middle}
+    
+        hero.x = canvas.width/2;
+	    hero.y = canvas.height/2;
+    	*/
+    	
+	// :: [set its position to recent one, not in middle]
+    	turn += 1;
+    	if(turn==1)
+    	{
+    		hero.x = canvas.width/2;
+	    	hero.y = canvas.height/2;
+    	}
+    	else 
+    	{
+    		hero.x = hero.x;
+    		hero.y = hero.y;
+    	}
 
 	// Throw the monster somewhere on the screen randomly
+	/*
 	monster.x = 32 + (Math.random() * (canvas.width - 64));
 	monster.y = 32 + (Math.random() * (canvas.height - 64));
+	*/
+	/* :: now monster will always inside the boundary */
+	var rand_sign = Math.floor(Math.random()*2);
+	if(rand_sign==0)
+		{var sign = -1;}
+	else if(rand_sign==1)
+		{var sign = 1;}
+	if(sign==1)
+	{
+	    	monster.x = canvas.width/2+(sign)*(Math.floor(Math.random()*((canvas.width-128)/2)));
+	    	monster.y = canvas.height/2+(sign)*(Math.floor(Math.random()*((canvas.height-128)/2)));
+	}
+    	else if(sign==-1)
+    	{
+    		monster.x = canvas.width/2+(sign)*(Math.floor(Math.random()*((canvas.width-64)/2)));
+    		monster.y = canvas.height/2+(sign)*(Math.floor(Math.random()*((canvas.height-64)/2)));
+    	}
+    	
+    	// for bullet positions
+    	bullet[0].x = canvas.width/2+(Math.floor(Math.random()*((canvas.width-128)/2)));
+    	bullet[0].y = 32;
+    	bullet[1].x = canvas.width/2-(Math.floor(Math.random()*((canvas.width-64)/2)));
+    	bullet[1].y = 32; 
+    	bullet[2].x = 32;
+    	bullet[2].y = canvas.height/2+(Math.floor(Math.random()*((canvas.height-128)/2)));
+    	bullet[3].x = 32;
+    	bullet[3].y = canvas.height/2-(Math.floor(Math.random()*((canvas.height-64)/2)));
 };
 
 // Update game objects
