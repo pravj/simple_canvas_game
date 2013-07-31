@@ -6,5 +6,28 @@
 	</head>
 	<body>
 		<script src="js/game.js"></script>
+		
+		<div id="score">
+		</div>
+		
+		<div id="paused">
+		</div>
+		
+		<div id="try">
+		</div>
+		
+		<div id="backside">
+			<img src="images/backside.jpg">
+			<span id="msg">
+				<pre><b><h3>Welcome at Goblin Park!!</h3></b></pre>
+			</span>
+		</div>
+		
+		<select id="timer" onclick="setTimer()">
+			<option>30 Sec</option>
+			<option>45 Sec</option>
+		</select>
+		
+		<button type="button" onclick="start()">Start Game</button>
 	</body>
 </html>
