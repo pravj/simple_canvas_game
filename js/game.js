@@ -462,18 +462,24 @@ function stop()
 	}
 }
 
-// The main game loop
-var main = function () {
+// Let's play this game!
+function start()
+{
+    $('#backside').css('opacity',0);
+    reset();
+	// The main game loop
+    var main = function () {
 	var now = Date.now();
 	var delta = now - then;
-
 	update(delta / 1000);
 	render();
-
+    
 	then = now;
-};
+    
+	// :: score
+	$('#score').html('Goblin Caught '+monstersCaught);};
 
-// Let's play this game!
-reset();
-var then = Date.now();
-setInterval(main, 1); // Execute as fast as possible
+	var then = Date.now();
+    	setTimeout('stop()',timelimit);
+    	setInterval(main, 1); // Execute as fast as possible
+}
