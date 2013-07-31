@@ -2,7 +2,7 @@
 How to make a simple HTML5 Canvas game
 
 Build your first HTML5 Canvas game in no time! [Read the whole article here!](http://www.lostdecadegames.com/how-to-make-a-simple-html5-canvas-game/)
-
+<hr>
 <h3>My fork :</h3>
 
 <ul>
@@ -37,7 +37,7 @@ Build your first HTML5 Canvas game in no time! [Read the whole article here!](ht
   </ul>
   </li>
 </ul>
-
+<hr>
 <h3>To Do</h3>
 <ul>
   <li>show <i>Countdown</i></li>
