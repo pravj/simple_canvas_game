@@ -118,6 +118,19 @@ var reset = function () {
     	bullet[3].y = canvas.height/2-(Math.floor(Math.random()*((canvas.height-64)/2)));
 };
 
+var flag;
+	// pause game after the hit by bullet
+var pause = function() {
+  	$('#paused').html('you loose with '+monstersCaught);
+  	// now pause all
+  	hero.speed = 0;
+  	monster.speed = 0;
+  	for(var a=0;a<4;a++)
+  	{bullet[a].speed = 0;}
+  	flag = true;
+}
+
+
 // Update game objects
 var update = function (modifier) {
 	if (38 in keysDown) { // Player holding up
