@@ -358,6 +358,28 @@ var update = function (modifier) {
 			else
 			{   monster.x += monster.speed * modifier;}
 		}
+		
+		//for bullet motion
+		if(true)
+		{
+			bullet[0].y += modifier*bullet[0].speed;
+			bullet[1].y += modifier*bullet[1].speed;
+			bullet[2].x += modifier*bullet[2].speed;
+			bullet[3].x += modifier*bullet[3].speed;
+
+        		var i = 0;
+    			for(i=0;i<4;i++)
+    			{
+    				if (
+    				bullet[i].x >= (hero.x-8) 
+    				&& bullet[i].x <= (hero.x+40)
+    				&& bullet[i].y >= (hero.y-8)
+    				&& bullet[i].y <= (hero.y+40)
+    				) 
+    				{pause();}
+
+    			}
+		}
 };
 
   
