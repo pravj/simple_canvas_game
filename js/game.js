@@ -1,3 +1,19 @@
+// to keep track of score on every visit
+if (localStorage.pagecount)
+{
+	localStorage.pagecount=Number(localStorage.pagecount) +1;
+}
+else
+{
+	localStorage.pagecount=1;
+}
+// set localstorage keys on first visit
+if(localStorage.pagecount==2)
+{
+	localStorage.setItem("medium",0);
+	localStorage.setItem("tiny",0);
+}
+
 // Create the canvas
 var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
