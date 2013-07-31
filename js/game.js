@@ -398,6 +398,13 @@ var render = function () {
 	if (monsterReady) {
 		ctx.drawImage(monsterImage, monster.x, monster.y);
 	}
+	
+	if(bulletReady) {
+	    ctx.drawImage(bulletImage, bullet[0].x, bullet[0].y);
+	    ctx.drawImage(bulletImage, bullet[1].x, bullet[1].y);
+	    ctx.drawImage(bulletImage, bullet[2].x, bullet[2].y);
+	    ctx.drawImage(bulletImage, bullet[3].x, bullet[3].y);
+	}
 
 	// Score
 	ctx.fillStyle = "rgb(250, 250, 250)";
@@ -406,6 +413,23 @@ var render = function () {
 	ctx.textBaseline = "top";
 	ctx.fillText("Goblins caught: " + monstersCaught, 32, 32);
 };
+
+var change=false;
+//for the user define timelimit
+function setTimer()
+{
+    	var change = true; // to alarm that change-detected
+    	
+	var f = document.getElementById("timer").options[document.getElementById("timer").selectedIndex].text;
+	timelimit = f;
+	if(f=='45 Sec')
+	{timelimit=45000;}
+	//console.log(timelimit);
+}
+if(change==false)
+{
+	var timelimit = 30000; //still the default
+}
 
 // The main game loop
 var main = function () {
