@@ -431,6 +431,37 @@ if(change==false)
 	var timelimit = 30000; //still the default
 }
 
+function stop()
+{
+    	if(flag!=true)
+	{
+	    hero.speed = 0;
+	    monster.speed = 0;
+	    for(var c=0;c<4;c++)
+	    {bullet[c].speed = 0;}
+
+
+	    if(timelimit==45000)
+	    {
+	    	if(monstersCaught>Number(localStorage.getItem("medium")))
+	        {
+		    console.log(monstersCaught);
+		    console.log(Number(localStorage.getItem("medium")));
+	            localStorage.setItem("medium",monstersCaught);
+		}
+	    }
+	    else if(timelimit==30000)
+	    {
+	    	if(monstersCaught>Number(localStorage.getItem("tiny")))
+	    	{
+		    console.log(monstersCaught);
+		    console.log(Number(localStorage.getItem("tiny")));
+	            localStorage.setItem("tiny",monstersCaught);
+		}
+	    }		
+	}
+}
+
 // The main game loop
 var main = function () {
 	var now = Date.now();
